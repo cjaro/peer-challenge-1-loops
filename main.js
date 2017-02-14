@@ -1,4 +1,3 @@
-
 // var name = employee.name;
 // var yearExperience = employee.yearsOfExperience;
 
@@ -15,30 +14,46 @@ $(document).ready(function(){
       '<tr>' +
       '<td>' + employee.name + '</td>' +
       '<td>' + employee.yearsOfExperience + '</td>' +
-      '</tr>');
+      '</tr>'
+    );//ends append
 
-      $('#totalYears').text(totalExperience);
+    $('#totalYears').text(totalExperience);
 
-      console.log(totalExperience);
-    }); //ending employee array function
+    console.log(totalExperience);
+  }); //ending employee array function
 
-    $('#submitNew').on('click', 'button', function(){
-      var name = $('#name').val();
-      var yearsOfExperience = $('#yearsOfExperience').val();
+  $('form').on('submit', function(event){
+    event.preventDefault();
 
-      function Employee(name, yearsOfExperience) {
-        this.name = name;
-        this.yearsOfExperience = yearsOfExperience;
-      }
-      var newEmployee = new Employee(name, yearsOfExperience);
-      employeeArray.push(newEmployee);
+    console.log("form has been submitted!!!!!!!!!!!!!!!!!");
 
-      $('#employeeExperience').empty();
-      $('#totalYears').empty();
+    var submitArray = $(this).serializeArray();
+    var newEmpObject = {};
 
-      employeeArray.forEach(function(employee, i){
-        var yearsOfExperience = parseInt(employee.yearsOfExperience);
-        totalExperience += parseInt(employee.yearsOfExperience);
+    submitArray.forEach(function(inputField){
+      newEmpObject[inputField.name] = inputField.value;
+    })
+
+    console.log('New Employee Object: ', newEmpObject);
+
+    // var name = $('#name').val();
+    // var yearsOfExperience = $('#yearsOfExperience').val();
+
+    // function Employee(name, yearsOfExperience) {
+    //   this.name = name;
+    //   this.yearsOfExperience = yearsOfExperience;
+    // }
+    // var newEmployee = new Employee(name, yearsOfExperience);
+    employeeArray.push(newEmpObject);
+
+    $('#employeeExperience').empty();
+    $('#totalYears').empty();
+
+    yearsOfExperience = 0;
+
+    employeeArray.forEach(function(employee, i){
+      // var yearsOfExperience = parseInt(newEmpObject.yearsOfExperience);
+      yearsOfExperience += parseInt(employee.yearsOfExperience);
 
       $('#employeeExperience').append(
         '<tr>' +
@@ -46,9 +61,9 @@ $(document).ready(function(){
         '<td>' + employee.yearsOfExperience + '</td>' +
         '</tr>');
 
-        $('#totalYears').text(totalExperience);
+        $('#totalYears').text(yearsOfExperience);
 
-        console.log(totalExperience);
+        console.log('total experience: ', yearsOfExperience);
 
 
       });
@@ -57,20 +72,20 @@ $(document).ready(function(){
 
 
 
-// need to not repeat previously entered data yearsOfExperience
+  // need to not repeat previously entered data yearsOfExperience
 
 
 
 
-    // var totalExperience = 0;
-    //
-    //   for (var i = 0; i < employeeArray.length; i++) {
-    //     var people = employeeArray[i];
-    //     var yearsOfExperience = people.yearsOfExperience;
-    //     totalExperience += people.yearsOfExperience;
-    //   };
+  // var totalExperience = 0;
+  //
+  //   for (var i = 0; i < employeeArray.length; i++) {
+  //     var people = employeeArray[i];
+  //     var yearsOfExperience = people.yearsOfExperience;
+  //     totalExperience += people.yearsOfExperience;
+  //   };
 
 
 
 
-    //  we need to pick out yearsOfExperience from the array and add them up
+  //  we need to pick out yearsOfExperience from the array and add them up
